@@ -1,9 +1,13 @@
 package org.casadocodigo.loja.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
@@ -11,10 +15,17 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String title;
+
 	private String description;
+
 	private int numberOfPages;
+
 	private double price;
+
+	@ManyToMany
+	private List<Author> authors = new ArrayList<Author>();
 
 	public Integer getId() {
 		return id;
@@ -54,6 +65,18 @@ public class Book {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
+	public void add(Author author) {
+		authors.add(author);
 	}
 
 	@Override
